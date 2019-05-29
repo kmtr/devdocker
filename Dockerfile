@@ -8,7 +8,11 @@ RUN apt-get update && \
         curl \
         neovim \
         tmux \
-        git
+        git \
+        build-essential \
+        pkg-config \
+        libssl-dev \
+        libcrypt-dev
 
 RUN groupadd -g 1000 developer && \
     useradd  -g      developer -G \
