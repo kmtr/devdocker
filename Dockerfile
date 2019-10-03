@@ -29,3 +29,4 @@ USER ${USER}
 WORKDIR /home/${USER}
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh", "${USER}"]
+
