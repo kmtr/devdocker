@@ -1,27 +1,32 @@
 USER=${shell logname}
 TAG=devdocker
+IMAGE_NAME=local:${TAG}
+CONTAINER_NAME=${TAG}
 
 ps:
-	docker ps -f ancestor=ubuntu:${TAG}
+	docker ps -f ancestor=${IMAGE_NAME}
 
 build:
-	docker build -t ubuntu:${TAG} --build-arg USER=${USER} .
+	docker build \
+		-t ${IMAGE_NAME} \
+		--build-arg USER=${USER} .
 
-run:
-	docker run -d --name ${TAG} \
+create:
+	docker create \
+		--name ${CONTAINER_NAME} \
 		-v /home/${USER}:/home/${USER} \
-		-p 8080:8080 \
-		ubuntu:${TAG} \
+		-p 127.0.0.1:8080:8080 \
+		${IMAGE_NAME} \
 		/usr/bin/top -b
 
 exec:
-	docker exec -ti ${TAG} tmux -2 -u
+	docker exec -ti ${CONTAINER_NAME} tmux -2 -u
 
 start:
-	docker start ${TAG}
+	docker start ${CONTAINER_NAME}
 
 stop:
-	docker stop ${TAG}
+	docker stop ${CONTAINER_NAME}
 
 rm:
-	docker rm ${TAG}
+	docker rm ${CONTAINER_NAME}

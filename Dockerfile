@@ -3,6 +3,7 @@ FROM ubuntu:19.04
 ARG USER
 
 RUN apt-get update && \
+      apt-get upgrade -y && \
       apt-get -y install \
         sudo \
         curl \
@@ -11,8 +12,7 @@ RUN apt-get update && \
         git \
         build-essential \
         pkg-config \
-        libssl-dev \
-        libcrypt-dev
+        libssl-dev
 
 RUN groupadd -g 1000 developer && \
     useradd  -g      developer -G \
