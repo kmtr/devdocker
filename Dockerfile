@@ -1,6 +1,10 @@
-FROM ubuntu:19.04
+FROM ubuntu:20.04
 
 ARG USER
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y tzdata
+ENV TZ=Asia/Tokyo
 
 RUN apt-get update && \
       apt-get upgrade -y && \
@@ -12,7 +16,8 @@ RUN apt-get update && \
         git \
         build-essential \
         pkg-config \
-        libssl-dev
+        libssl-dev \
+        zsh
 
 RUN groupadd -g 1000 developer && \
     useradd  -g      developer -G \
